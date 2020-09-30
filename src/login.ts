@@ -56,7 +56,7 @@ export async function login(): Promise<void> {
   // await page.setUserAgent(USER_AGENT);
   await page.goto(EDUCATIVE_BASE_URL, { timeout: HTTP_REQUEST_TIMEOUT, waitUntil: 'networkidle2' });
 
-  const isLoginButtonClicked = await clickButton(page, 'MuiButton-label', 'Log in');
+  const isLoginButtonClicked = await clickButton(page, 'MuiButton-label', 'log in');
 
   if (!isLoginButtonClicked) {
     throw new Error('Could not find login button (open login form)');
@@ -68,7 +68,7 @@ export async function login(): Promise<void> {
   await page.type('[name=email]', EMAIL, { delay: 200 });
   await page.type('[name=password]', PASSWORD, { delay: 200 });
 
-  const clickLoginBtn = await clickButton(page, 'MuiButton-label', 'LOGIN');
+  const clickLoginBtn = await clickButton(page, 'MuiButton-label', 'login');
 
   if (!clickLoginBtn) {
     throw new Error('Could not find login button (login form submit)');
@@ -102,7 +102,7 @@ async function clickButton(page: Page, className: string, buttonLabel: string): 
 
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < elements.length; i++) {
-      if (elements[i].innerHTML === buttonLabel) {
+      if (elements[i].innerHTML.toLowerCase() === buttonLabel) {
         (elements[i] as HTMLElement).click();
         return true;
       }
